@@ -2,16 +2,20 @@ package errwrapfmt
 
 import (
 	"go/ast"
-
 	"regexp"
 
 	"golang.org/x/tools/go/analysis"
+	"golang.org/x/tools/go/analysis/passes/inspect"
+	"golang.org/x/tools/go/ast/inspector"
 )
 
 var Analyzer = &analysis.Analyzer{
 	Name: "errwrapfmt",
 	Doc:  "errwrapfmt finds invalid error wrap format",
 	Run:  run,
+	Requires: []*analysis.Analyzer{
+		inspect.Analyzer,
+	},
 }
 
 var (
@@ -20,20 +24,21 @@ var (
 )
 
 func run(pass *analysis.Pass) (any, error) {
-	for _, f := range pass.Files {
-		ast.Inspect(f, func(n ast.Node) bool {
-			// target node is only string literal
-			bl, ok := n.(*ast.BasicLit)
-			if !ok {
-				return true
-			}
+	in := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
-			if wrapReg.MatchString(bl.Value) && !validReg.MatchString(bl.Value) {
-				pass.Reportf(bl.Pos(), "invalid error wrap format")
-			}
-
-			return true
-		})
+	// target node is only string literal
+	types := []ast.Node{
+		(*ast.BasicLit)(nil),
 	}
+
+	in.Preorder(types, func(n ast.Node) {
+		switch n := n.(type) {
+		case *ast.BasicLit:
+			if wrapReg.MatchString(n.Value) && !validReg.MatchString(n.Value) {
+				pass.Reportf(n.Pos(), "invalid error wrap format")
+			}
+		}
+	})
+
 	return nil, nil
 }
