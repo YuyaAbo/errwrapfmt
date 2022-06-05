@@ -1,11 +1,11 @@
-package a
+package testdata
 
 import (
 	"errors"
 	"fmt"
 )
 
-func f() {
+func _() {
 	err := errors.New("error")
 
 	_ = fmt.Errorf("error: %w", err) // OK
