@@ -4,9 +4,9 @@ errwrapfmt finds wrong error wrap format.
 
 Using the wrong format makes the stack trace redundant. An example is https://go.dev/play/p/pPTUFmBvToa
 ```
-"error: %w" // OK
-"error :%w" // NG
-"error %w"  // NG
+": %w" // OK
+":%w"  // NG
+"%w"   // NG
 ```
 
 ## Install
