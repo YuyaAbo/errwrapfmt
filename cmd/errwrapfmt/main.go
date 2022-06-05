@@ -1,11 +1,11 @@
 package main
 
 import (
-	"golang.org/x/tools/go/analysis/unitchecker"
+	"golang.org/x/tools/go/analysis/singlechecker"
 
 	"github.com/YuyaAbo/errwrapfmt"
 )
 
 func main() {
-	unitchecker.Main(errwrapfmt.Analyzer)
+	singlechecker.Main(errwrapfmt.Analyzer)
 }
