@@ -20,8 +20,8 @@ var Analyzer = &analysis.Analyzer{
 }
 
 var (
-	wrapReg  = regexp.MustCompile(`%w`)
-	validReg = regexp.MustCompile(`: %w`)
+	wrapReg      = regexp.MustCompile(`%w`)
+	rightWrapReg = regexp.MustCompile(`: %w`)
 )
 
 func run(pass *analysis.Pass) (any, error) {
@@ -34,7 +34,7 @@ func run(pass *analysis.Pass) (any, error) {
 	ins.Preorder(nodeFilter, func(n ast.Node) {
 		switch n := n.(type) {
 		case *ast.BasicLit:
-			if wrapReg.MatchString(n.Value) && !validReg.MatchString(n.Value) {
+			if wrapReg.MatchString(n.Value) && !rightWrapReg.MatchString(n.Value) {
 				pass.Reportf(n.Pos(), "wrong error wrap format")
 			}
 		}
