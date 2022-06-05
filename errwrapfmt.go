@@ -11,7 +11,7 @@ import (
 
 var Analyzer = &analysis.Analyzer{
 	Name: "errwrapfmt",
-	Doc:  "errwrapfmt finds invalid error wrap format",
+	Doc:  "finds invalid error wrap format",
 	Run:  run,
 	Requires: []*analysis.Analyzer{
 		inspect.Analyzer,
@@ -24,14 +24,13 @@ var (
 )
 
 func run(pass *analysis.Pass) (any, error) {
-	in := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
+	ins := pass.ResultOf[inspect.Analyzer].(*inspector.Inspector)
 
-	// target node is only string literal
-	types := []ast.Node{
+	nodeFilter := []ast.Node{
 		(*ast.BasicLit)(nil),
 	}
 
-	in.Preorder(types, func(n ast.Node) {
+	ins.Preorder(nodeFilter, func(n ast.Node) {
 		switch n := n.(type) {
 		case *ast.BasicLit:
 			if wrapReg.MatchString(n.Value) && !validReg.MatchString(n.Value) {
