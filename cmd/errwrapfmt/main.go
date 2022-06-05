@@ -6,6 +6,4 @@ import (
 	"github.com/YuyaAbo/errwrapfmt"
 )
 
-func main() {
-	singlechecker.Main(errwrapfmt.Analyzer)
-}
+func main() { singlechecker.Main(errwrapfmt.Analyzer) }
