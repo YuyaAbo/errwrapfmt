@@ -9,6 +9,7 @@ import (
 	"golang.org/x/tools/go/ast/inspector"
 )
 
+// Analyzer finds wrong error wrap format.
 var Analyzer = &analysis.Analyzer{
 	Name: "errwrapfmt",
 	Doc:  "finds wrong error wrap format",
