@@ -1,6 +1,6 @@
 # errwrapfmt
 
-errwrapfmt finds invalid error wrap format.
+errwrapfmt finds wrong error wrap format.
 
 Using the wrong format makes the stack trace redundant. An example is https://go.dev/play/p/pPTUFmBvToa
 ```

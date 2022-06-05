@@ -11,7 +11,7 @@ import (
 
 var Analyzer = &analysis.Analyzer{
 	Name: "errwrapfmt",
-	Doc:  "finds invalid error wrap format",
+	Doc:  "finds wrong error wrap format",
 	Run:  run,
 	Requires: []*analysis.Analyzer{
 		inspect.Analyzer,
@@ -34,7 +34,7 @@ func run(pass *analysis.Pass) (any, error) {
 		switch n := n.(type) {
 		case *ast.BasicLit:
 			if wrapReg.MatchString(n.Value) && !validReg.MatchString(n.Value) {
-				pass.Reportf(n.Pos(), "invalid error wrap format")
+				pass.Reportf(n.Pos(), "wrong error wrap format")
 			}
 		}
 	})
