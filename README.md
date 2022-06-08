@@ -1,6 +1,7 @@
 # errwrapfmt
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/YuyaAbo/errwrapfmt)
+[![Go Reference](https://pkg.go.dev/badge/github.com/YuyaAbo/errwrapfmt.svg)](https://pkg.go.dev/github.com/YuyaAbo/errwrapfmt)
 
 errwrapfmt finds wrong error wrap format.
 
