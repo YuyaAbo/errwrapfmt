@@ -19,7 +19,7 @@ Using the wrong format makes the stack trace redundant. An example is https://go
 go install github.com/YuyaAbo/errwrapfmt/cmd/errwrapfmt@latest
 ```
 
-## Useage
+## Usage
 
 ```bash
 errwrapfmt ./...
